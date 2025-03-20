@@ -9,7 +9,11 @@ export const UserInfo = ({ onClick, category, setCategory }) => {
         <div className="bg-blue-600 rounded-lg py-7">
           <div>user</div>
         </div>
-        <CustomerData onClick={onClick} setCategory={setCategory} category={category}/>
+        <CustomerData
+          onClick={onClick}
+          setCategory={setCategory}
+          category={category}
+        />
         <Business
           profileData={'Business'}
           ProfileCategory2={'country'}

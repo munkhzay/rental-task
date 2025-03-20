@@ -17,7 +17,7 @@ export const Header = () => {
   return (
     <div className="bg-blue-500 text-center ">
       <div className="w-[1044px] text-black m-auto h-24 flex justify-between items-center">
-        <div> Rental crud</div>
+        <div> </div>
         <div className="flex gap-5 items-center">
           <div className="flex flex-col justify-center items-center">
             <Avatar>

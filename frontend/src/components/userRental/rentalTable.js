@@ -10,10 +10,13 @@ export const RentalTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser } = useAuthContext();
   const [rentals, setRentals] = useState();
-  const allRental = async () => {
+  const [search, setSearch] = useState('');
+
+  const allDta = async () => {
     try {
       const rental = await axios.get(
-        `http://localhost:8800/rental/${currentUser?.user?.id}`
+        `http://localhost:8800/rental/${currentUser?.user?.id}`,
+        {}
       );
       setRentals(rental?.data);
     } catch (error) {
@@ -21,8 +24,21 @@ export const RentalTable = () => {
     }
   };
   useEffect(() => {
-    allRental();
+    allDta();
   }, []);
+  const allRental = async () => {
+    try {
+      const rental = await axios.post(`http://localhost:8800/rental/search`, {
+        id: currentUser?.user?.id,
+        value: search,
+      });
+      console.log(rental?.data);
+      setRentals(rental?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const itemsPerPage = 5;
   const totalPages = Math.ceil(rentals?.length / itemsPerPage);
   const currentRentals = rentals?.slice(
@@ -31,7 +47,7 @@ export const RentalTable = () => {
   );
   return (
     <div className="w-full">
-      <TableHead refetch={allRental} />
+      <TableHead refetch={allRental} setSearch={setSearch} />
       <TableDemo refetch={allRental} currentRentals={currentRentals} />
       <TablePagination
         currentPage={currentPage}

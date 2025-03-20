@@ -68,7 +68,12 @@ export function TableDemo({ currentRentals, refetch }) {
             <TableCell className={'text-right'}>
               {rental.payment_status}
             </TableCell>{' '}
-            <TableCell className="text-right">{rental.reg_date}</TableCell>{' '}
+            <TableCell className="text-right">
+              {' '}
+              {rental.reg_date
+                ? new Date(rental.reg_date).toISOString().split('T')[0]
+                : ''}
+            </TableCell>{' '}
             <TableCell
               onClick={() => setRentalId(rental.id)}
               className={'flex flex-row justify-evenly items-center'}

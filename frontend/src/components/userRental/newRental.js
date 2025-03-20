@@ -35,7 +35,6 @@ export function AddNew({ refetch }) {
       })
       .then(function (response) {
         toast.success('Zahialga amjilttai nemegdelee');
-        console.log(response);
         setEmail('');
         setRentalDay('');
         setRent();
