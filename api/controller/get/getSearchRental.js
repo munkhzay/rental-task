@@ -5,20 +5,20 @@ export const searchRental = (req, res) => {
 
   const q = `
 SELECT * 
-FROM req_rental 
-WHERE user_id = ? 
-  AND (rent = ?  OR customer_email = ?)
+FROM rental 
+WHERE owner_id = ? 
+  AND (rent = ?  OR owner_email = ?)
 
 UNION ALL
 
 SELECT * 
-FROM req_rental
-WHERE user_id = ? 
+FROM rental
+WHERE owner_id = ? 
   AND NOT EXISTS (
     SELECT 1 
-    FROM req_rental 
-    WHERE user_id = ? 
-      AND (rent = ?  OR customer_email = ?)
+    FROM rental 
+    WHERE owner_id = ? 
+      AND (rent = ?  OR owner_email = ?)
   )
        ORDER BY reg_date DESC`;
 
@@ -29,7 +29,7 @@ WHERE user_id = ?
       if (err) return res.status(400).json(err);
 
       if (data?.length === 0) {
-        const refreshQuery = `SELECT * FROM req_rental WHERE user_id=?`;
+        const refreshQuery = `SELECT * FROM rental WHERE owner_id=?`;
 
         db.query(refreshQuery, [id], (err, data) => {
           if (err) return res.status(400).json(err);

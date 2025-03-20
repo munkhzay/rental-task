@@ -1,9 +1,9 @@
 'use client';
-import {  Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { AddNew } from './newRental';
 import { Input } from '../ui/input';
 
-export const TableHead = ({ refetch, setSearch, }) => {
+export const TableHead = ({ refetch, setSearch }) => {
   return (
     <div className="bg-blue-600 h-25 w-full rounded-sm flex justify-between items-center">
       <AddNew refetch={refetch} />

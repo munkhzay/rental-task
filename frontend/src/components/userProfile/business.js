@@ -1,24 +1,40 @@
 'use client';
+
+import { icons } from '@/lib/findIcon';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
-export const Business = (props) => {
-  const { ProfileCategory2, ProfileCategory } = props;
-  const [category, setCategory] = useState(false);
+export const Business = ({ category, getCategory }) => {
+  const [showcategory, setShowcategory] = useState(false);
+
   return (
     <div className="border rounded-lg">
-      <div className="p-2">
+      <div className="p-2 flex flex-col gap-3">
         <div
           className="flex justify-between"
-          onClick={() => setCategory(!category)}
+          onClick={() => {
+            setShowcategory(!showcategory), getCategory();
+          }}
         >
-          <div>Business</div>
-          {!category ? <ChevronRight /> : <ChevronDown />}
+          <div>Rentals category</div>
+          {!showcategory ? <ChevronRight /> : <ChevronDown />}
         </div>
-        {category && (
-          <div className="flex flex-col p-2 gap-2">
-            <div>{ProfileCategory}</div>
-            <div>{ProfileCategory2}</div>
+        {showcategory && (
+          <div className="flex flex-col gap-2">
+            {category?.map((icon) => {
+              const foundicon = icons.find((id) => id.id === icon.icon_id);
+              return (
+                <div
+                  className="flex flex-row justify-between px-4 py-1"
+                  key={icon.id}
+                >
+                  <div className="text-neutral-600 text-md" key={icon.id}>
+                    {icon.category_name}
+                  </div>
+                  <div>{foundicon.icon}</div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

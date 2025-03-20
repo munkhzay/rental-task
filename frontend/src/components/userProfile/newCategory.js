@@ -1,10 +1,10 @@
 'use client';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -12,11 +12,9 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+import { SelectCategory } from './newIcon';
 
-export function DialogDemo() {
-  const [name, setName] = useState('');
-  const [userName, setUserName] = useState('');
+export function DialogDemo({ createCategory, setIcon, setName, name, icon }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -29,39 +27,38 @@ export function DialogDemo() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you are done.
-          </DialogDescription>
+          <DialogTitle>New category</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+            <Label htmlFor="name" className="text-left">
               Name
             </Label>
             <Input
-              onChange={(event) => (setName = event.target.value)}
+              onChange={(event) => setName(event.target.value)}
               id="name"
-              value="Pedro Duarte"
               className="col-span-3"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
+            <Label htmlFor="username" className="text-left">
+              Icon
             </Label>
-            <Input
-              onChange={(event) => (setUserName = event.target.value)}
-              id="username"
-              value="@peduarte"
-              className="col-span-3"
-            />
+            <SelectCategory setIcon={setIcon} />
           </div>
         </div>
         <DialogFooter>
-          {' '}
-          <DialogClose />
-          <Button type="submit">Save changes</Button>
+          <DialogClose>
+            <div>
+              <Button
+                className={'bg-blue-500 hover:bg-green-500'}
+                disabled={!name || !icon}
+                onClick={createCategory}
+              >
+                Save category
+              </Button>
+            </div>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Table,
   TableBody,
@@ -20,6 +21,7 @@ export function TableDemo({ currentRentals, refetch }) {
   const [rentalDay, setRentalDay] = useState('');
   const [rent, setRent] = useState();
   const [paymentType, setPaymentType] = useState('');
+  const [icon, setIcon] = useState();
   const updateRental = async () => {
     await axios
       .post('http://localhost:8800/rental/update', {
@@ -28,6 +30,7 @@ export function TableDemo({ currentRentals, refetch }) {
         rent: rent,
         payment_status: paymentType,
         id: rentalId,
+        category_id: icon,
       })
       .then(function (response) {
         console.log(response);
@@ -41,7 +44,7 @@ export function TableDemo({ currentRentals, refetch }) {
   const deleteRental = async () => {
     try {
       await axios.delete(`http://localhost:8800/rental/delete/${rentalId}`);
-      toast.success('amjilttai ustaglaa');
+      toast.success('Successful');
       refetch();
     } catch (error) {
       console.log(error);
@@ -51,29 +54,32 @@ export function TableDemo({ currentRentals, refetch }) {
     <Table className={'p-10'}>
       <TableHeader>
         <TableRow>
-          <TableHead>Customer email</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Category</TableHead>
           <TableHead>Rental Date</TableHead>
           <TableHead className="text-right">Rent $</TableHead>
-          <TableHead className="text-right">Paid</TableHead>
-          <TableHead className="text-right"> Req Date</TableHead>{' '}
+          <TableHead className="text-right">Status</TableHead>
+          <TableHead className="text-right">Date</TableHead>
           <TableHead className="w-[100px] text-center">Action</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {currentRentals?.map((rental, index) => (
           <TableRow key={index}>
-            <TableCell>{rental.customer_email}</TableCell>
-            <TableCell>{rental.rental_date}</TableCell>
+            <TableCell>{rental.owner_email}</TableCell>
+            <TableCell>{rental.category_id}</TableCell>
+            <TableCell>
+              {rental.rental_date
+                ? new Date(rental.rental_date).toISOString().split('T')[0]
+                : ''}
+            </TableCell>
             <TableCell className="text-right">{rental.rent}</TableCell>
-            <TableCell className={'text-right'}>
-              {rental.payment_status}
-            </TableCell>{' '}
+            <TableCell className={'text-right'}>{rental.mood}</TableCell>
             <TableCell className="text-right">
-              {' '}
               {rental.reg_date
                 ? new Date(rental.reg_date).toISOString().split('T')[0]
                 : ''}
-            </TableCell>{' '}
+            </TableCell>
             <TableCell
               onClick={() => setRentalId(rental.id)}
               className={'flex flex-row justify-evenly items-center'}
@@ -84,6 +90,7 @@ export function TableDemo({ currentRentals, refetch }) {
                 setRentalDay={setRentalDay}
                 setEmail={setEmail}
                 updateRental={updateRental}
+                setIcon={setIcon}
               />
               <AlertDialogDemo onClick={deleteRental} />
             </TableCell>

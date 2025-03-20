@@ -12,13 +12,13 @@ import {
 export function SelectDemo({ onValueChange }) {
   return (
     <Select onValueChange={(value) => onValueChange(value)}>
-      <SelectTrigger className="">
-        <SelectValue placeholder="Select a fruit" />
+      <SelectTrigger className="w-[180px]">
+        <SelectValue placeholder="Select a mode" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="PAYMENT">PAYMENT</SelectItem>
-          <SelectItem value="NONPAY">NONPAYMENT</SelectItem>
+          <SelectItem value="ACTIVE">ACTIVE</SelectItem>
+          <SelectItem value="INACTIVE">INACTIVE</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

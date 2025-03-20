@@ -48,6 +48,7 @@ export default function SignUp() {
   });
 
   const router = useRouter();
+
   function onSubmit(data) {
     axios
       .post('http://localhost:8800', {
@@ -57,7 +58,7 @@ export default function SignUp() {
       })
       .then(function (response) {
         console.log(response);
-        toast.success('Successful sign up');
+        toast.success('Successful');
         setTimeout(() => {
           router.push('/auth/signin');
         }, 2000);
@@ -137,7 +138,7 @@ export default function SignUp() {
                 className={'p-5 w-full bg-blue-500 hover:bg-blue-600'}
                 type="submit"
               >
-                Submit
+                Бүртгүүлэх
               </Button>
               <div>Эсвэл</div>
               <Link href={'/auth/signin'}>

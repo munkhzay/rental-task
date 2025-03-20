@@ -50,11 +50,10 @@ export default function SignIn() {
         email: data.email,
       })
       .then(function (response) {
-        if (response.data === null)
-          toast.warning('Таны оруулсан мэдээлэл буруу байна');
+        if (response.data === null) toast.warning('Your data is incorrect');
         else {
           signin(response?.data?.token, response?.data?.user[0]),
-            toast.success('Амжилттай нэвтэрлээ');
+            toast.success('Successful');
           setTimeout(() => {
             router.push('/');
           }, 1000);

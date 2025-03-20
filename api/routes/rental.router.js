@@ -1,9 +1,9 @@
 import express from "express";
-import { createRental } from "../controller/post/createCustomer.js";
 import { getRental } from "../controller/get/getRental.js";
 import { updateRental } from "../controller/update/updateRental.js";
 import { deleteRental } from "../controller/delete/deleteRental.js";
 import { searchRental } from "../controller/get/getSearchRental.js";
+import { createRental } from "../controller/post/createRental.js";
 
 const rentalRouter = express.Router();
 

@@ -1,7 +1,7 @@
 'use client';
 import { TablePagination } from './Pagination';
 import { TableDemo } from './rentalHistory';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { TableHead } from './tableHead';
 import axios from 'axios';
 import { useAuthContext } from '@/providers/authProvider';
@@ -11,6 +11,7 @@ export const RentalTable = () => {
   const { currentUser } = useAuthContext();
   const [rentals, setRentals] = useState();
   const [search, setSearch] = useState('');
+  // const [category, setCategory] = useState();
 
   const allDta = async () => {
     try {
@@ -26,18 +27,35 @@ export const RentalTable = () => {
   useEffect(() => {
     allDta();
   }, []);
+
   const allRental = async () => {
     try {
       const rental = await axios.post(`http://localhost:8800/rental/search`, {
         id: currentUser?.user?.id,
         value: search,
       });
-      console.log(rental?.data);
       setRentals(rental?.data);
     } catch (error) {
       console.log(error);
     }
   };
+  // useEffect(() => {
+  //   allRental();
+  // }, []);
+  // const getCategory = async () => {
+  //   try {
+  //     const category = await axios.get(
+  //       `http://localhost:8800/category/${currentUser?.user?.id}`
+  //     );
+  //     setCategory(category?.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getCategory();
+  // }, []);
 
   const itemsPerPage = 5;
   const totalPages = Math.ceil(rentals?.length / itemsPerPage);
@@ -47,7 +65,11 @@ export const RentalTable = () => {
   );
   return (
     <div className="w-full">
-      <TableHead refetch={allRental} setSearch={setSearch} />
+      <TableHead
+        // category={category}
+        refetch={allRental}
+        setSearch={setSearch}
+      />
       <TableDemo refetch={allRental} currentRentals={currentRentals} />
       <TablePagination
         currentPage={currentPage}

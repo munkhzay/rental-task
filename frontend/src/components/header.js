@@ -16,15 +16,24 @@ export const Header = () => {
   };
   return (
     <div className="bg-blue-500 text-center ">
-      <div className="w-[1044px] text-black m-auto h-24 flex justify-between items-center">
-        <div> </div>
-        <div className="flex gap-5 items-center">
-          <div className="flex flex-col justify-center items-center">
-            <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+      <div className="w-[1024px] text-black m-auto h-24 flex justify-between items-center">
+        <div>
+          {' '}
+          <div className="flex flex-row justify-center items-center gap-4">
+            {' '}
+            <Avatar className={'w-12 h-12'}>
+              <AvatarImage
+                width={32}
+                src="https://github.com/shadcn.png"
+                alt="@shadcn"
+              />
             </Avatar>{' '}
-            <div className="font-bold">{currentUser?.user?.name}</div>
-          </div>
+            <div className="font-semibold px-5 text-lg bg-white rounded-xl w-fit text-black">
+              {currentUser?.user?.name}
+            </div>
+          </div>{' '}
+        </div>
+        <div className="flex gap-10 items-center justify-center">
           <div className="p-2 border bg-white rounded-lg">
             <LogOut onClick={logout} className="" />
           </div>

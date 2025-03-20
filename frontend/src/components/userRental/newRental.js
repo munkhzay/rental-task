@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -11,17 +13,19 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CirclePlus } from 'lucide-react';
-import { SelectDemo } from './selectPayType';
 import axios from 'axios';
 import { useAuthContext } from '@/providers/authProvider';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { SelectDemo } from './selectPayType';
+import { SelectIcon } from './selectCategory';
 
 export function AddNew({ refetch }) {
   const [email, setEmail] = useState('');
   const [rentalDay, setRentalDay] = useState('');
   const [rent, setRent] = useState();
   const [paymentType, setPaymentType] = useState('');
+  const [icon, setIcon] = useState();
   const { currentUser } = useAuthContext();
 
   const createCustomer = async () => {
@@ -32,19 +36,23 @@ export function AddNew({ refetch }) {
         rental_date: rentalDay,
         rent: rent,
         payment_type: paymentType,
+        category_id: icon,
       })
       .then(function (response) {
-        toast.success('Zahialga amjilttai nemegdelee');
+        console.log(response);
+        toast.success('Successful');
         setEmail('');
         setRentalDay('');
+        setIcon('');
         setRent();
-        setPaymentType('NONPEY');
+        setPaymentType('ACTIVE');
         refetch();
       })
       .catch(function (error) {
-        toast.error(error);
+        console.log(error);
       });
   };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -64,13 +72,13 @@ export function AddNew({ refetch }) {
         <DialogHeader>
           <DialogTitle>New rental</DialogTitle>
           <p id="dialog-description" className="text-sm text-gray-500">
-            Та түрээсийн мэдээллээ оруулна уу.
+            Enter your rental information.
           </p>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-left">
-              Customer email
+              Email
             </Label>
             <Input
               onChange={(event) => setEmail(event.target.value)}
@@ -80,8 +88,14 @@ export function AddNew({ refetch }) {
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="username" className="text-left">
+              Category
+            </Label>
+            <SelectIcon onValueChange={setIcon} />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
-              Rental date
+              Rental Date
             </Label>
             <Input
               onChange={(event) => setRentalDay(event.target.value)}
@@ -92,7 +106,7 @@ export function AddNew({ refetch }) {
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
-              Rent$
+              Rent $$
             </Label>
             <Input
               onChange={(event) => setRent(event.target.value)}
@@ -103,22 +117,23 @@ export function AddNew({ refetch }) {
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Paid
+            <Label htmlFor="username" className="text-left">
+              Status
             </Label>
             <SelectDemo onValueChange={setPaymentType} />
           </div>
         </div>
         <DialogFooter>
           <DialogClose>
-            {' '}
-            <Button
-              className={'bg-blue-600 hover:bg-green-500'}
-              disabled={!email || !rentalDay || !rent || !paymentType}
-              onClick={createCustomer}
-            >
-              Save{' '}
-            </Button>{' '}
+            <div>
+              <Button
+                className={'bg-blue-600 hover:bg-green-500'}
+                disabled={!email || !rentalDay || !rent || !paymentType}
+                onClick={createCustomer}
+              >
+                Save{' '}
+              </Button>{' '}
+            </div>
           </DialogClose>{' '}
         </DialogFooter>
       </DialogContent>
