@@ -30,7 +30,7 @@ export function AddNew({ refetch }) {
   const [categoryname, setCategoryName] = useState('');
   const createCustomer = async () => {
     await axios
-      .post('http://localhost:8800/rental/post', {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/rental/post`, {
         user_id: currentUser?.user?.id,
         customer_email: email,
         rental_date: rentalDay,

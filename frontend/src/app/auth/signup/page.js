@@ -51,7 +51,7 @@ export default function SignUp() {
 
   function onSubmit(data) {
     axios
-      .post('http://localhost:8800', {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}`, {
         name: data.username,
         password: data.password,
         email: data.email,

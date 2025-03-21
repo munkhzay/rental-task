@@ -19,7 +19,7 @@ export const RentalTable = () => {
   const allDta = async () => {
     try {
       const rental = await axios.get(
-        `http://localhost:8800/rental/${currentUser?.user?.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/rental/${currentUser?.user?.id}`,
         {}
       );
       setRentals(rental?.data);
@@ -34,7 +34,7 @@ export const RentalTable = () => {
 
   const allRental = async () => {
     try {
-      const rental = await axios.post(`http://localhost:8800/rental/search`, {
+      const rental = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/rental/search`, {
         id: currentUser?.user?.id,
         value: search,
       });
@@ -46,7 +46,7 @@ export const RentalTable = () => {
   
   const rentalStatus=async()=>{
     try {
-        const data= await axios.get(`http://localhost:8800/rental/status/${currentUser?.user?.id}/${status}`, {
+        const data= await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/rental/status/${currentUser?.user?.id}/${status}`, {
       mood:status
     })
     console.log(data)

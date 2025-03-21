@@ -19,7 +19,7 @@ export function SelectIcon({ onValueChange, setCategoryName }) {
   const getCategory = async () => {
     try {
       const category = await axios.get(
-        `http://localhost:8800/category/${currentUser?.user?.id}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/category/${currentUser?.user?.id}`
       );
       setCategory(category?.data);
     } catch (error) {

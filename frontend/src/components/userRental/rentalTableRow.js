@@ -25,7 +25,7 @@ export function TableDemo({ currentRentals, refetch }) {
   const [categoryName, setCategoryName] = useState();
   const updateRental = async () => {
     await axios
-      .post('http://localhost:8800/rental/update', {
+      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/rental/update`, {
         rental_date: rentalDay,
         customer_email: email,
         rent: rent,
@@ -45,7 +45,7 @@ export function TableDemo({ currentRentals, refetch }) {
 
   const deleteRental = async () => {
     try {
-      await axios.delete(`http://localhost:8800/rental/delete/${rentalId}`);
+      await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/rental/delete/${rentalId}`);
       toast.success('Successful');
       refetch();
     } catch (error) {
