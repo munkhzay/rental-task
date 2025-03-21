@@ -23,6 +23,7 @@ export function SheetDemo(props) {
     setPaymentType,
     updateRental,
     setIcon,
+    setCategoryName,
   } = props;
   return (
     <Sheet className={'p-4'}>
@@ -72,7 +73,10 @@ export function SheetDemo(props) {
             <Label htmlFor="name" className="text-left">
               Category
             </Label>
-            <SelectIcon onValueChange={setIcon} />
+            <SelectIcon
+              setCategoryName={setCategoryName}
+              onValueChange={setIcon}
+            />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-left">
@@ -83,13 +87,14 @@ export function SheetDemo(props) {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-              <Button as={"span"}
-                onClick={updateRental}
-                className={'bg-blue-500 hover:bg-green-500'}
-                type="submit"
-              >
-                Save changes
-              </Button>
+            <Button
+              as={'span'}
+              onClick={updateRental}
+              className={'bg-blue-500 hover:bg-green-500'}
+              type="submit"
+            >
+              Save changes
+            </Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

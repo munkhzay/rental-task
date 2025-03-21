@@ -2,11 +2,15 @@
 import { Search } from 'lucide-react';
 import { AddNew } from '../userRental/newRental';
 import { Input } from '../ui/input';
+import { SelectStatus } from './selectStatus';
 
-export const TableHead = ({ refetch, setSearch }) => {
+export const TableHead = ({ refetch, setSearch, setStatus , rentalStatus}) => {
   return (
     <div className="bg-blue-600 h-25 w-full rounded-sm flex justify-between items-center">
-      <AddNew refetch={refetch} />
+      <div className="flex items-center">
+        <AddNew refetch={refetch} />
+        <SelectStatus setStatus={setStatus} rentalStatus={rentalStatus}/>
+      </div>
       <div className="flex items-center ">
         <div className="flex flex-row  bg-white mr-10 px-2 rounded-lg items-center">
           <Input

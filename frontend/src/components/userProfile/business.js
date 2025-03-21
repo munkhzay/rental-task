@@ -16,7 +16,7 @@ export const Business = ({ category, getCategory }) => {
             setShowcategory(!showcategory), getCategory();
           }}
         >
-          <div>Rentals category</div>
+          <div>Categories</div>
           {!showcategory ? <ChevronRight /> : <ChevronDown />}
         </div>
         {showcategory && (

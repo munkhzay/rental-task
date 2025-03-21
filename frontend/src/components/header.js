@@ -2,8 +2,8 @@ import { LogOut } from 'lucide-react';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { useAuthContext } from '@/providers/authProvider';
 import { useRouter } from 'next/navigation';
-import { toast, ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const Header = () => {
   const { setCurrentUser, currentUser } = useAuthContext();
   const router = useRouter();

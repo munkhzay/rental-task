@@ -48,9 +48,10 @@ export function DialogDemo({ createCategory, setIcon, setName, name, icon }) {
           </div>
         </div>
         <DialogFooter>
-          <DialogClose>
+          <DialogClose asChild>
             <div>
-              <Button as="span"
+              <Button
+                as="span"
                 className={'bg-blue-500 hover:bg-green-500'}
                 disabled={!name || !icon}
                 onClick={createCategory}

@@ -12,10 +12,10 @@ import {
 import { useAuthContext } from '@/providers/authProvider';
 import axios from 'axios';
 
-export function SelectIcon({ onValueChange }) {
-  const [category, setCategory] = React.useState();
+export function SelectIcon({ onValueChange, setCategoryName }) {
+  const [category, setCategory] = React.useState([]);
   const { currentUser } = useAuthContext();
-
+  // const [categoryName, setCategoryName]=React.useState()
   const getCategory = async () => {
     try {
       const category = await axios.get(
@@ -31,7 +31,15 @@ export function SelectIcon({ onValueChange }) {
     getCategory();
   }, []);
   return (
-    <Select onValueChange={(value) => onValueChange(value)}>
+    <Select
+      onValueChange={(value) => {
+        const selectedCategory = category?.find((icon) => icon.id === value);
+        setCategoryName(selectedCategory?.category_name || '');
+        if (onValueChange) {
+          onValueChange(value);
+        }
+      }}
+    >
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select a category" />
       </SelectTrigger>

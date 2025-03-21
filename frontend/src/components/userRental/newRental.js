@@ -27,7 +27,7 @@ export function AddNew({ refetch }) {
   const [paymentType, setPaymentType] = useState('');
   const [icon, setIcon] = useState();
   const { currentUser } = useAuthContext();
-
+  const [categoryname, setCategoryName] = useState('');
   const createCustomer = async () => {
     await axios
       .post('http://localhost:8800/rental/post', {
@@ -37,6 +37,7 @@ export function AddNew({ refetch }) {
         rent: rent,
         payment_type: paymentType,
         category_id: icon,
+        category_name: categoryname,
       })
       .then(function (response) {
         console.log(response);
@@ -58,7 +59,7 @@ export function AddNew({ refetch }) {
       <DialogTrigger asChild>
         <div
           className={
-            'bg-blue-600 p-2 ml-4 rounded-sm border-none hover:bg-white hover:text-black text-white'
+            'bg-blue-600 py-2 ml-4 rounded-sm border-none hover:bg-white hover:text-black text-white'
           }
           variant="outline"
         >
@@ -91,7 +92,10 @@ export function AddNew({ refetch }) {
             <Label htmlFor="username" className="text-left">
               Category
             </Label>
-            <SelectIcon onValueChange={setIcon} />
+            <SelectIcon
+              setCategoryName={setCategoryName}
+              onValueChange={setIcon}
+            />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
@@ -126,7 +130,8 @@ export function AddNew({ refetch }) {
         <DialogFooter>
           <DialogClose asChild>
             <div>
-              <Button as="span"
+              <Button
+                as="span"
                 className={'bg-blue-600 hover:bg-green-500'}
                 disabled={!email || !rentalDay || !rent || !paymentType}
                 onClick={createCustomer}

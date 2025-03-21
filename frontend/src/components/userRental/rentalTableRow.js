@@ -22,6 +22,7 @@ export function TableDemo({ currentRentals, refetch }) {
   const [rent, setRent] = useState();
   const [paymentType, setPaymentType] = useState('');
   const [icon, setIcon] = useState();
+  const [categoryName, setCategoryName] = useState();
   const updateRental = async () => {
     await axios
       .post('http://localhost:8800/rental/update', {
@@ -31,6 +32,7 @@ export function TableDemo({ currentRentals, refetch }) {
         payment_status: paymentType,
         id: rentalId,
         category_id: icon,
+        category_name: categoryName,
       })
       .then(function (response) {
         console.log(response);
@@ -55,7 +57,7 @@ export function TableDemo({ currentRentals, refetch }) {
       <TableHeader>
         <TableRow>
           <TableHead>Email</TableHead>
-          <TableHead>Category</TableHead>
+          <TableHead>Rental Product</TableHead>
           <TableHead>Rental Date</TableHead>
           <TableHead className="text-right">Rent $</TableHead>
           <TableHead className="text-right">Status</TableHead>
@@ -67,7 +69,7 @@ export function TableDemo({ currentRentals, refetch }) {
         {currentRentals?.map((rental, index) => (
           <TableRow key={index}>
             <TableCell>{rental.owner_email}</TableCell>
-            <TableCell>{rental.category_id}</TableCell>
+            <TableCell>{rental.category_name}</TableCell>
             <TableCell>
               {rental.rental_date
                 ? new Date(rental.rental_date).toISOString().split('T')[0]
@@ -85,6 +87,7 @@ export function TableDemo({ currentRentals, refetch }) {
               className={'flex flex-row justify-evenly items-center'}
             >
               <SheetDemo
+                setCategoryName={setCategoryName}
                 setPaymentType={setPaymentType}
                 setRent={setRent}
                 setRentalDay={setRentalDay}

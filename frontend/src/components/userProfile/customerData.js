@@ -7,18 +7,18 @@ export const CustomerData = ({ onClick, showCategory, setShowCategory }) => {
       <div className="p-2">
         <div
           className="flex justify-between"
-          onClick={() => setShowCategory(!showCategory)}
+          // onClick={() => setShowCategory(!showCategory)}
         >
           <div className="">Owner Data</div>
-          {!showCategory ? <ChevronRight /> : <ChevronDown />}
+          {/* {!showCategory ? <ChevronRight /> : <ChevronDown />} */}
         </div>
-        {showCategory && (
+        {/* {showCategory && ( */}
           <div className="flex flex-col p-2 gap-2">
             <div className="text-neutral-600 " onClick={onClick}>
               Rentals
             </div>
           </div>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

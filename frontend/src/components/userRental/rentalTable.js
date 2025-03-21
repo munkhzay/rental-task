@@ -1,17 +1,20 @@
 'use client';
 import { TablePagination } from '../ownerComponents/Pagination';
-import { TableDemo } from './rentalHistory';
 import { use, useEffect, useState } from 'react';
 import { TableHead } from '../ownerComponents/tableHead';
 import axios from 'axios';
 import { useAuthContext } from '@/providers/authProvider';
+import { TableDemo } from './rentalTableRow';
 
 export const RentalTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { currentUser } = useAuthContext();
   const [rentals, setRentals] = useState();
   const [search, setSearch] = useState('');
-  // const [category, setCategory] = useState();
+  const [status, setStatus] = useState('ACTIVE');
+  const [all, setAll]=useState()
+  // const [activeRental, setActiveRental]=useState()
+ 
 
   const allDta = async () => {
     try {
@@ -20,6 +23,7 @@ export const RentalTable = () => {
         {}
       );
       setRentals(rental?.data);
+      setAll(rentals?.data)
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +42,26 @@ export const RentalTable = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }; 
+  
+  const rentalStatus=async()=>{
+    try {
+        const data= await axios.get(`http://localhost:8800/rental/status/${currentUser?.user?.id}/${status}`, {
+      mood:status
+    })
+    console.log(data)
+    setRentals(data?.data)
+    if(status==="all"){
+      setRentals(all)
+    }
+    setStatus('')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+useEffect(()=>{
+    rentalStatus()
+  }, [])
   // useEffect(() => {
   //   allRental();
   // }, []);
@@ -53,9 +76,6 @@ export const RentalTable = () => {
   //   }
   // };
 
-  // useEffect(() => {
-  //   getCategory();
-  // }, []);
 
   const itemsPerPage = 5;
   const totalPages = Math.ceil(rentals?.length / itemsPerPage);
@@ -66,7 +86,10 @@ export const RentalTable = () => {
   return (
     <div className="w-full">
       <TableHead
-        // category={category}
+      status={status}
+      rentalStatus={ rentalStatus}
+      all={all}
+        setStatus={setStatus}
         refetch={allRental}
         setSearch={setSearch}
       />

@@ -29,7 +29,7 @@ export default function Home() {
           setShowCategory={setShowCategory}
           onClick={() => setShowRent(!showRent)}
         />
-        {showCategory && showRent && <RentalTable />}
+         <RentalTable />
       </div>
       <Footer />
     </div>

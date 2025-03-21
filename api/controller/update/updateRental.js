@@ -1,10 +1,17 @@
 import { db } from "../../db.js";
 
 export const updateRental = (req, res) => {
-  const { rental_date, customer_email, rent, payment_status, id, category_id } =
-    req.body;
+  const {
+    rental_date,
+    customer_email,
+    rent,
+    payment_status,
+    id,
+    category_id,
+    category_name,
+  } = req.body;
 
-  const getQuery = `SELECT rental_date, owner_email, rent, mood, category_id FROM rental WHERE id = ?`;
+  const getQuery = `SELECT rental_date, owner_email, rent, mood, category_id, category_name FROM rental WHERE id = ?`;
 
   db.query(getQuery, [id], (error, results) => {
     if (error) return res.status(500).json(error);
@@ -16,10 +23,11 @@ export const updateRental = (req, res) => {
     const updatedRent = rent !== undefined ? rent : oldData.rent;
     const updatedPaymentStatus = payment_status || oldData.mood;
     const updateCategoryId = category_id || oldData.category_id;
+    const updateCategoryName = category_name || oldData.category_name;
 
     const updateQuery = `
       UPDATE rental 
-      SET rental_date = ?, owner_email = ?, rent = ?, mood = ?, category_id=?
+      SET rental_date = ?, owner_email = ?, rent = ?, mood = ?, category_id=?, category_name=?
       WHERE id = ?
     `;
 
@@ -31,6 +39,7 @@ export const updateRental = (req, res) => {
         updatedRent,
         updatedPaymentStatus,
         updateCategoryId,
+        updateCategoryName,
         id,
       ],
       (updateError, data) => {
