@@ -3,7 +3,7 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { useAuthContext } from '@/providers/authProvider';
 import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
-
+import "react-toastify/dist/ReactToastify.css";
 export const Header = () => {
   const { setCurrentUser, currentUser } = useAuthContext();
   const router = useRouter();
@@ -39,7 +39,7 @@ export const Header = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 };

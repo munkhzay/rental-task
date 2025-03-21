@@ -1,8 +1,8 @@
 'use client';
-import { TablePagination } from './Pagination';
+import { TablePagination } from '../ownerComponents/Pagination';
 import { TableDemo } from './rentalHistory';
 import { use, useEffect, useState } from 'react';
-import { TableHead } from './tableHead';
+import { TableHead } from '../ownerComponents/tableHead';
 import axios from 'axios';
 import { useAuthContext } from '@/providers/authProvider';
 

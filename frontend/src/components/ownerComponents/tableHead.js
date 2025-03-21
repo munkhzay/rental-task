@@ -1,6 +1,6 @@
 'use client';
 import { Search } from 'lucide-react';
-import { AddNew } from './newRental';
+import { AddNew } from '../userRental/newRental';
 import { Input } from '../ui/input';
 
 export const TableHead = ({ refetch, setSearch }) => {

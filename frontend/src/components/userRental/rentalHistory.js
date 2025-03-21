@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { SheetDemo } from './editRental';
-import { AlertDialogDemo } from './rentalDelete';
+import { AlertDialogDemo } from '../ownerComponents/rentalDelete';
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';

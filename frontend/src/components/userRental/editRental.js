@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Pencil } from 'lucide-react';
-import { SelectDemo } from './selectPayType';
+import { SelectDemo } from '../ownerComponents/selectPayType';
 import { SelectIcon } from './selectCategory';
 
 export function SheetDemo(props) {
@@ -83,15 +83,13 @@ export function SheetDemo(props) {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <div>
-              <Button
+              <Button as={"span"}
                 onClick={updateRental}
                 className={'bg-blue-500 hover:bg-green-500'}
                 type="submit"
               >
                 Save changes
               </Button>
-            </div>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

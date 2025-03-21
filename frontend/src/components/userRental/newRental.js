@@ -17,7 +17,7 @@ import axios from 'axios';
 import { useAuthContext } from '@/providers/authProvider';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { SelectDemo } from './selectPayType';
+import { SelectDemo } from '../ownerComponents/selectPayType';
 import { SelectIcon } from './selectCategory';
 
 export function AddNew({ refetch }) {
@@ -124,9 +124,9 @@ export function AddNew({ refetch }) {
           </div>
         </div>
         <DialogFooter>
-          <DialogClose>
+          <DialogClose asChild>
             <div>
-              <Button
+              <Button as="span"
                 className={'bg-blue-600 hover:bg-green-500'}
                 disabled={!email || !rentalDay || !rent || !paymentType}
                 onClick={createCustomer}
